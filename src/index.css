@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Syne", sans-serif;
+  --font-mono: "Space Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-brand-primary: #00d4ff;
+  --color-brand-secondary: #7c3aed;
+  --color-brand-accent: #10b981;
+  --color-bg-dark: #050810;
+  --color-bg-card: #0a0f1e;
+  --color-border-dim: rgba(0, 212, 255, 0.15);
+
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  --animate-gradient: gradient 5s ease infinite;
+
+  @keyframes scan {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100vh); }
+  }
+  --animate-scan: scan 4s linear infinite;
+}
+
+@layer base {
+  body {
+    @apply bg-[#050810] text-[#e2e8f0] font-sans antialiased;
+    background-image: 
+      linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+}
+
+.glass-card {
+  @apply bg-bg-card/40 backdrop-blur-xl border border-border-dim rounded-2xl shadow-xl transition-all duration-300;
+}
+
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-primary bg-[length:200%_auto] animate-gradient;
+}
+
+.nav-link {
+  @apply font-mono text-[11px] uppercase tracking-widest text-[#64748b] hover:text-brand-primary transition-colors duration-300;
+}
+
+.nav-link.active {
+  @apply text-brand-primary;
+}
+
+.scan-line {
+  @apply absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-primary/40 to-transparent animate-scan pointer-events-none;
+}
+
+.cursor-glow {
+  @apply pointer-events-none fixed w-[400px] h-[400px] rounded-full z-[1000] transition-[left,top] duration-75;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.04) 0%, transparent 70%);
+}
